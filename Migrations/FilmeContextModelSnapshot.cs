@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FilmesApi.Migrations
 {
-    [DbContext(typeof(FilmeContext))]
+    [DbContext(typeof(Data.DbContext))]
     partial class FilmeContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
