@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace FilmesApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class FilmeController : ControllerBase
 {
 
-    private FilmeContext _context;
+    private DatabaseContext _context;
     private IMapper _mapper;
 
-    public FilmeController(FilmeContext context, IMapper mapper)
+    public FilmeController(DatabaseContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
@@ -34,9 +34,7 @@ public class FilmeController : ControllerBase
         Filme filme = _mapper.Map<Filme>(filmeDto);
         _context.Filmes.Add(filme);
         _context.SaveChanges();
-        return CreatedAtAction(nameof(RecuperaFilmePorId),
-            new { id = filme.Id },
-            filme);
+        return CreatedAtAction(nameof(RecuperaFilmePorId), new { id = filme.Id }, filme);
     }
 
     [HttpGet]

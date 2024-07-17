@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("FilmeConnection");
 
-builder.Services.AddDbContext<FilmeContext>(opts =>
+builder.Services.AddDbContext<DatabaseContext>(opts =>
     opts.UseNpgsql(connectionString));
 
 builder.Services.

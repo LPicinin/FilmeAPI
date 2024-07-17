@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FilmesApi.Migrations
 {
-    [DbContext(typeof(FilmeContext))]
+    [DbContext(typeof(Data.DbContext))]
     [Migration("20240714151458_create_database")]
     partial class create_database
     {
