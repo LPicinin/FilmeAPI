@@ -4,6 +4,7 @@ using FilmesApi.Data.Dtos;
 using FilmesApi.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FilmesApi.Controllers
 {
@@ -32,9 +33,14 @@ namespace FilmesApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ReadCinemaDto> Recupera([FromQuery] int skip = 0, [FromQuery] int take = 50)
+        public IEnumerable<ReadCinemaDto> Recupera([FromQuery] int? enderecoId, [FromQuery] int skip = 0, [FromQuery] int take = 50)
         {
-            return _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.Skip(skip).Take(take));
+            if (enderecoId == null)
+                return _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.Skip(skip).Take(take).ToList());
+            else
+                return _mapper.Map<List<ReadCinemaDto>>(
+                    _context.Cinemas.FromSqlRaw($"SELECT \"Id\", \"Nome\", \"EnderecoId\" " +
+                    $"  FROM \"Cinemas\" WHERE \"EnderecoId\" = {enderecoId}").Skip(skip).Take(take).ToList());
         }
 
         [HttpGet("{id}")]
